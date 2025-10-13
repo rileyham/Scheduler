@@ -24,7 +24,7 @@ void PriorityNonPreemptive(std::queue<Process> processes, bool isVerbose, string
 
         // if readyQueue is empty, we need to advance time
         if (readyQueue.empty()) {
-            cout << "CPU is idle at time " << elapsedTime << endl;
+            //cout << "CPU is idle at time " << elapsedTime << endl;
             elapsedTime++;
             // Load any new processes that have arrived
             while (!processes.empty() && processes.front().getArrivalTime() <= elapsedTime) {
@@ -41,8 +41,8 @@ void PriorityNonPreemptive(std::queue<Process> processes, bool isVerbose, string
                 elapsedTime += currentProcess.getRemainingCpuBurst();
                 int waitTime = elapsedTime - currentProcess.getArrivalTime() - currentProcess.getTotalCpuBurst();
 
-                cout << "Process " << currentProcess.getId() << " finished at time " << elapsedTime << " ";
-                cout << "Process " << currentProcess.getId() << " had a wait time of " << waitTime << endl;
+                //cout << "Process " << currentProcess.getId() << " finished at time " << elapsedTime << " ";
+                //cout << "Process " << currentProcess.getId() << " had a wait time of " << waitTime << endl;
 
                 if (isVerbose) {
                     response += "P" + to_string(currentProcess.getId()) + " finished at time " + to_string(elapsedTime) + " ";
@@ -82,7 +82,7 @@ void PriorityPreemptive(std::queue<Process> processes, bool isVerbose, string& r
 
         // if readyQueue is empty, we need to advance time
         if (readyQueue.empty()) {
-            cout << "CPU is idle at time " << elapsedTime << endl;
+            //cout << "CPU is idle at time " << elapsedTime << endl;
             elapsedTime++;
             // Load any new processes that have arrived
             while (!processes.empty() && processes.front().getArrivalTime() <= elapsedTime) {
@@ -103,8 +103,8 @@ void PriorityPreemptive(std::queue<Process> processes, bool isVerbose, string& r
                 if (currentProcess.getRemainingCpuBurst() == 0) {
                     int waitTime = elapsedTime - currentProcess.getArrivalTime() - currentProcess.getTotalCpuBurst();
 
-                    cout << "Process " << currentProcess.getId() << " finished at time " << elapsedTime << " ";
-                    cout << "Process " << currentProcess.getId() << " had a wait time of " << waitTime << endl;
+                    //cout << "Process " << currentProcess.getId() << " finished at time " << elapsedTime << " ";
+                    //cout << "Process " << currentProcess.getId() << " had a wait time of " << waitTime << endl;
 
                     if (isVerbose) {
                         response += "P" + to_string(currentProcess.getId()) + " finished at time " + to_string(elapsedTime) + " ";

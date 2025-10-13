@@ -4,6 +4,7 @@
 //
 //  Interface of the process class.
 //
+// Overloaded operators for priority queue: https://learn.microsoft.com/en-us/troubleshoot/developer/visualstudio/cpp/libraries/stl-priority-queue-class-custom-type
 #ifndef PROCESS_H
 #define PROCESS_H
 
@@ -15,7 +16,16 @@ public:
     int getTotalCpuBurst() const;
     int getPriority() const;
     int getRemainingCpuBurst() const;
+    void updatePrioirity(int newPriority);
     void decrementRemainingCpuBurst(int burst) { remainingCPUBurst -= burst; }
+    bool operator<(const Process& other) const {
+        // Higher priority value means lower priority
+        if (this->priority == other.priority) {
+            return this->id > other.id; // Earlier arrival time has higher priority
+        }
+
+        return this->priority > other.priority;
+    }
 
 private:
     int id;

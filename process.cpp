@@ -27,3 +27,7 @@ int Process::getPriority() const {
 int Process::getRemainingCpuBurst() const {
     return remainingCPUBurst;
 }
+
+void Process::updatePrioirity(int newPriority) { 
+    priority = newPriority; 
+}
