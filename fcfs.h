@@ -1,3 +1,6 @@
+// FILE: fcfs.h
+// Group 1: Chase Gartner, Ryan Geisler, Riley Ham
+// Operating Systems, Fall 2025
 #ifndef FCFS_H
 #define FCFS_H
 

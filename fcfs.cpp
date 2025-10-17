@@ -1,54 +1,53 @@
+// FILE: fcfs.cpp
+// Group 1: Chase Gartner, Ryan Geisler, Riley Ham
+// Operating Systems, Fall 2025
 #include "fcfs.h"
 #include <iostream>
-using namespace std;
 
-FCFS::FCFS(bool verbose_) : verbose(verbose_) {}
-
-double FCFS::schedule(queue<Process> ready) {
+double FCFS::schedule(std::queue<Process> ready) {
     if (ready.empty()) {
-        if (verbose) cout << "[FCFS] No processes to schedule.\n";
+        if (verbose) std::cout << "[FCFS] No processes to schedule.\n";
         return 0.0;
     }
 
-    int time = 0;
-    long long total_wait = 0;
-    int count = 0; //count of processes
+    int time = 0; // current CPU time
+    long total_wait = 0;// sum of per-process wait times
+    int count = 0; // number of processes seen
 
     while (!ready.empty()) {
         Process p = ready.front();
         ready.pop();
 
-        //if the process isnt ready yet the CPU will wait
-        if (time < p.arrival_time) {
-            if (verbose) cout << "[FCFS] CPU idle until t=" << p.arrival_time << "\n";
-            time = p.arrival_time;
+        const int arrival = p.getArrivalTime();
+        const int burst   = p.getTotalCpuBurst();
+
+        // if the CPU is idle until this process arrives, advance the time
+        if (time < arrival) {
+            if (verbose) std::cout << "[FCFS] CPU idle until t=" << arrival << "\n";
+            time = arrival;
         }
 
-        //process will start now
-        p.start_time = time;
-        p.wait_time  = p.start_time - p.arrival_time;
+        const int start = time;
+        const int wait = start - arrival;
+        const int finish = start + burst;
 
-        //current time plus how long it takes
-        time = time + p.burst_time;
-        p.finish_time = time;
-
-        //increase the total waiting time and process count
-        total_wait += p.wait_time;
-        count++;
+        // run the process to completion
+        time = finish;
+        total_wait += static_cast<long long>(wait);
+        ++count;
 
         if (verbose) {
-            cout << p.id
-                 << "  arrive=" << p.arrival_time
-                 << "  start="  << p.start_time
-                 << "  finish=" << p.finish_time
-                 << "  wait="   << p.wait_time
-                 << "\n";
+            std::cout << "P_" << p.getId()
+                    << "  arrive=" << arrival
+                    << "  start="  << start
+                    << "  finish=" << finish
+                    << "  wait="   << wait
+                    << "\n";
         }
     }
+    const double avg_wait =
+        static_cast<double>(total_wait) / static_cast<double>(count);
 
-    //average waiting time of all the processes
-    double avg_wait = static_cast<double>(total_wait) / static_cast<double>(count);
-
-    if (verbose) cout << "[FCFS] Average waiting time = " << avg_wait << "\n";
+    if (verbose) std::cout << "[FCFS] Average waiting time = " << avg_wait << "\n";
     return avg_wait;
 }
