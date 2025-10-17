@@ -8,10 +8,9 @@
 using namespace std;
 
 void RoundRobin(std::queue<Process> processes, int timeQuantum, bool isVerbose, string& response) {
-    std::queue<Process> readyQueue;
+    queue<Process> readyQueue;
     int elapsedTime = 0;
     int numProcesses = processes.size();
-    int attemptedProcesses = 0;
     bool processCompleted = false;
 
     // Initially load processes that have already arrived
@@ -44,7 +43,7 @@ void RoundRobin(std::queue<Process> processes, int timeQuantum, bool isVerbose, 
                     elapsedTime += currentProcess.getRemainingCpuBurst();
                     int waitTime = elapsedTime - currentProcess.getArrivalTime() - currentProcess.getTotalCpuBurst();
 
-                    cout << "Process " << currentProcess.getId() << " finished at time " << elapsedTime << " ";
+                    //cout << "Process " << currentProcess.getId() << " finished at time " << elapsedTime << " ";
                     cout << "Process " << currentProcess.getId() << " had a wait time of " << waitTime << endl;
 
                     if (isVerbose) {
