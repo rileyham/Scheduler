@@ -8,7 +8,7 @@
 #define SJF_H
 
 #include <string>
-#include "process.h"
+#include "../process.h"
 #include <queue>
 using namespace std;
 

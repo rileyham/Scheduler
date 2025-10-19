@@ -11,6 +11,7 @@ void PriorityNonPreemptive(std::queue<Process> processes, bool isVerbose, string
     priority_queue<Process> readyQueue;
     int elapsedTime = 0;
     int numProcesses = processes.size();
+    double totalWaitTime = 0;
     
     // Initially load processes that have already arrived
     for (int i = 0; i < numProcesses; ++i) {
@@ -51,6 +52,7 @@ void PriorityNonPreemptive(std::queue<Process> processes, bool isVerbose, string
                 else {
                     response += "P" + to_string(currentProcess.getId()) + " Wait Time: " + to_string(waitTime) + "\n";
                 }
+                totalWaitTime += waitTime;
             }
 
             // Load any new processes that have arrived
@@ -63,12 +65,14 @@ void PriorityNonPreemptive(std::queue<Process> processes, bool isVerbose, string
     if (isVerbose) {
         response += "Elapsed Time: " + to_string(elapsedTime) + "\n";
     }
+    response += "The average wait time is " + to_string(totalWaitTime / numProcesses) + "\n";
 }
 
-void PriorityPreemptive(std::queue<Process> processes, bool isVerbose, string& response) {
+void PriorityPreemptive(queue<Process> processes, bool isVerbose, string& response) {
     priority_queue<Process> readyQueue;
     int elapsedTime = 0;
     int numProcesses = processes.size();
+    double totalWaitTime = 0;
     
     // Initially load processes that have already arrived
     for (int i = 0; i < numProcesses; ++i) {
@@ -113,6 +117,7 @@ void PriorityPreemptive(std::queue<Process> processes, bool isVerbose, string& r
                     else {
                         response += "P" + to_string(currentProcess.getId()) + " Wait Time: " + to_string(waitTime) + "\n";
                     }
+                    totalWaitTime += waitTime;
                 } else {
                     // Requeue the process if not finished
                     readyQueue.push(currentProcess);
@@ -129,4 +134,6 @@ void PriorityPreemptive(std::queue<Process> processes, bool isVerbose, string& r
     if (isVerbose) {
         response += "Elapsed Time: " + to_string(elapsedTime) + "\n";
     }
+    response += "The average wait time is " + to_string(totalWaitTime / numProcesses) + "\n";
+
 }

@@ -3,11 +3,15 @@
 // Operating Systems, Fall 2025
 #include "fcfs.h"
 #include <iostream>
+#include <string>
+using namespace std;
 
-double FCFS::schedule(std::queue<Process> ready) {
+
+void FCFS(queue<Process> ready, bool verbose, string &response ) {
     if (ready.empty()) {
-        if (verbose) std::cout << "[FCFS] No processes to schedule.\n";
-        return 0.0;
+        if (verbose) response = "[FCFS] No processes to schedule.\n";
+        response = "The average wait time is 0.0";
+        return;
     }
 
     int time = 0; // current CPU time
@@ -23,7 +27,7 @@ double FCFS::schedule(std::queue<Process> ready) {
 
         // if the CPU is idle until this process arrives, advance the time
         if (time < arrival) {
-            if (verbose) std::cout << "[FCFS] CPU idle until t=" << arrival << "\n";
+            if (verbose) response +=  "[FCFS] CPU idle until t=" + to_string(arrival) + "\n";
             time = arrival;
         }
 
@@ -37,17 +41,19 @@ double FCFS::schedule(std::queue<Process> ready) {
         ++count;
 
         if (verbose) {
-            std::cout << "P_" << p.getId()
-                    << "  arrive=" << arrival
-                    << "  start="  << start
-                    << "  finish=" << finish
-                    << "  wait="   << wait
-                    << "\n";
+            response += "P_" + to_string(p.getId()) +
+                "  arrive=" + to_string(arrival) +
+                "  start="  + to_string(start) +
+                "  finish=" + to_string(finish) +
+                "  wait="   + to_string(wait) + "\n";
         }
+
     }
     const double avg_wait =
         static_cast<double>(total_wait) / static_cast<double>(count);
 
-    if (verbose) std::cout << "[FCFS] Average waiting time = " << avg_wait << "\n";
-    return avg_wait;
+    if (verbose) response += "[FCFS] Average waiting time = " + to_string(avg_wait) + "\n";
+    response += "The average wait time is " + to_string(avg_wait);
+    return;
+
 }

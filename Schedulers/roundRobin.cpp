@@ -12,6 +12,7 @@ void RoundRobin(std::queue<Process> processes, int timeQuantum, bool isVerbose, 
     int elapsedTime = 0;
     int numProcesses = processes.size();
     bool processCompleted = false;
+    double totalWaitTime = 0;
 
     // Initially load processes that have already arrived
     for (int i = 0; i < numProcesses; ++i) {
@@ -25,7 +26,7 @@ void RoundRobin(std::queue<Process> processes, int timeQuantum, bool isVerbose, 
 
         // if readyQueue is empty, we need to advance time
         if (readyQueue.empty()) {
-            cout << "CPU is idle at time " << elapsedTime << endl;
+            //cout << "CPU is idle at time " << elapsedTime << endl;
             elapsedTime++;
             // Load any new processes that have arrived
             while (!processes.empty() && processes.front().getArrivalTime() <= elapsedTime) {
@@ -44,32 +45,32 @@ void RoundRobin(std::queue<Process> processes, int timeQuantum, bool isVerbose, 
                     int waitTime = elapsedTime - currentProcess.getArrivalTime() - currentProcess.getTotalCpuBurst();
 
                     //cout << "Process " << currentProcess.getId() << " finished at time " << elapsedTime << " ";
-                    cout << "Process " << currentProcess.getId() << " had a wait time of " << waitTime << endl;
+                    //cout << "Process " << currentProcess.getId() << " had a wait time of " << waitTime << endl;
 
                     if (isVerbose) {
                         response += "P" + to_string(currentProcess.getId()) + " finished at time " + to_string(elapsedTime) + " ";
                         response += " Wait Time: " + to_string(waitTime) + "\n";
                     }
                     else {
-                        response += "P" + to_string(currentProcess.getId()) + " Wait Time: " + to_string(waitTime) + "\n";
+                        //response += "P" + to_string(currentProcess.getId()) + " Wait Time: " + to_string(waitTime) + "\n";
                     }
+                    totalWaitTime += waitTime;
                     // Process is done, do not requeue
                     processCompleted = true;
 
                 } else {
                     // Process does not finish, requeue it
                     elapsedTime += timeQuantum;
-                    cout << "Process " << currentProcess.getId() << " ran for " << timeQuantum << " units." << endl;
+                    //cout << "Process " << currentProcess.getId() << " ran for " << timeQuantum << " units." << endl;
                     currentProcess.decrementRemainingCpuBurst(timeQuantum);
                 }
             }
 
-            for (int i = 0; i < processes.size(); ++i) {
-                if (processes.front().getArrivalTime() <= elapsedTime) {
-                    readyQueue.push(processes.front());
-                    processes.pop();
-                }
+            while (!processes.empty() && processes.front().getArrivalTime() <= elapsedTime) {
+                readyQueue.push(processes.front());
+                processes.pop();
             }
+
             if (!processCompleted) {
                 readyQueue.push(currentProcess);
             }
@@ -81,5 +82,7 @@ void RoundRobin(std::queue<Process> processes, int timeQuantum, bool isVerbose, 
     if (isVerbose) {
         response += "Elapsed Time: " + to_string(elapsedTime) + "\n";
     }
+    response += "The average wait time is " + to_string(totalWaitTime/numProcesses) + "\n";
     return;
+
 }

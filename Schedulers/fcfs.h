@@ -5,15 +5,12 @@
 #define FCFS_H
 
 #include <queue>
-#include <process.h>
+#include "../process.h"
+#include <string>
+using namespace std;
 
-class FCFS {
-public:
-    FCFS(bool verbose = false);
-    double schedule(std::queue<Process> ready);
+void FCFS(queue<Process> ready, bool verbose, string &response);
 
-private:
-    bool verbose;
-};
+
 
 #endif// FCFS_H
