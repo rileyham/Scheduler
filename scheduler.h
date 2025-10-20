@@ -3,11 +3,12 @@
 // Operating Systems, Fall 2025
 // Header file for the main scheduler file
 
-using namespace std;
 #include <iostream>
 #include <string>
 #include <queue>
 #include "process.h"
+using namespace std;
+
 
 // Takes in different commands and sets global variables to it
 int commandDecider (int argc, char **argv);
