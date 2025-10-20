@@ -36,6 +36,7 @@ void FCFS(queue<Process> ready, bool isVerbose, string &response ) {
         const int finish = time + burst;
 
         // run the process to completion
+        time = finish;
         total_wait += static_cast<long long>(wait);
         ++count;
 
