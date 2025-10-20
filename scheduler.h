@@ -27,5 +27,5 @@ bool compareByArrival(const Process& a, const Process& b);
 string type = "FCFS";
 bool preemptive = false;
 int quanta = 10;
-string file = "";
+string file = "sched.in";
 bool verbose = false;
