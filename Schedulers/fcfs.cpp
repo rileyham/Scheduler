@@ -52,8 +52,6 @@ void FCFS(queue<Process> ready, bool verbose, string &response ) {
     const double avg_wait =
         static_cast<double>(total_wait) / static_cast<double>(count);
 
-    if (verbose) response += "[FCFS] Average waiting time = " + to_string(avg_wait) + "\n";
     response += "The average wait time is " + to_string(avg_wait);
     return;
-
 }

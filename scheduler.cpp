@@ -1,7 +1,6 @@
 // scheduler.cpp
 // Takes input in from user, decides which scheduler to use and sends the output
 
-using namespace std;
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -14,9 +13,8 @@ using namespace std;
 #include "Schedulers/fcfs.h" 
 #include "Schedulers/priority.h"
 #include "process.h"
+using namespace std;
 
-
-// main
 int main(int argc, char **argv) {
     string command, response;
     int tokens;
@@ -26,27 +24,31 @@ int main(int argc, char **argv) {
         commandDecider(argc, argv);
     }
 
-    ready = readFile(file, type, preemptive);
-    if (type == "FCFS") {
-        FCFS(ready, verbose, response);
+    if (readFile(file, type, preemptive, ready)){
+        if (type == "FCFS") {
+            FCFS(ready, verbose, response);
+        } 
+        else if (type == "SJF" && !preemptive) {
+            SJFNonPreemptive(ready, verbose, response);
+        } 
+        else if (type == "SJF" && preemptive) {
+            SJFPreemptive(ready, verbose, response);
+        }
+        else if (type == "RR") {
+            RoundRobin(ready, quanta, verbose, response);
+        } 
+        else if (type == "Priority" && !preemptive) {
+            PriorityNonPreemptive(ready, verbose, response);
+        } 
+        else if (type == "Priority" && preemptive) {
+            PriorityPreemptive(ready, verbose, response);
+        }
+        else {
+            response = "Invalid scheduling type selected\n";
+        }
     } 
-    else if (type == "SJF" && !preemptive) {
-        SJFNonPreemptive(ready, verbose, response);
-    } 
-    else if (type == "SJF" && preemptive) {
-        SJFPreemptive(ready, verbose, response);
-    }
-    else if (type == "RR") {
-        RoundRobin(ready, quanta, verbose, response);
-    } 
-    else if (type == "Priority" && !preemptive) {
-        PriorityNonPreemptive(ready, verbose, response);
-    } 
-    else if (type == "Priority" && preemptive) {
-        PriorityPreemptive(ready, verbose, response);
-    }
     else {
-        response = "Invalid scheduling type selected\n";
+        response = "Error reading file or file is empty\n";
     }
 
     cout << response << endl;
@@ -79,32 +81,33 @@ int commandDecider(int argc, char **argv) {
 }
 
 // readfile
-// Reads the input file and builds the process queue and sorts by a certain element
-// checks if its premptive or not
-queue<Process> readFile(const string &filename, const string &type, bool preemptive) {
+bool readFile(const string &filename, const string &type, bool preemptive, queue<Process> &ready) {
     vector<Process> processes;
     ifstream file(filename);
     string line;
+
+    if (!file) {
+        return false;
+    }
     
     while (getline(file, line)) {
         string idStr;
-        int id, arrival, burst, prio;
+        int id, arrival, burst, priority;
         stringstream ss(line);
-        ss >> idStr >> arrival >> burst >> prio;
-        id = stoi(idStr.substr(2)); // remove 'P_'
-        processes.emplace_back(id, arrival, burst, prio);
+        ss >> idStr >> arrival >> burst >> priority;
+        id = stoi(idStr.substr(2)); // removes 'P_' prefix so we can compare their integer IDs
+        processes.emplace_back(id, arrival, burst, priority);
     }
 
     sort(processes.begin(), processes.end(), compareByArrival);
 
-    queue<Process> ready;
     for (auto& p : processes) {
         ready.push(p);
     }
-    return ready;
+    return true;
 }
 
-
+// compareByArrival
 bool compareByArrival(const Process& a, const Process& b) {
     if (a.getArrivalTime() == b.getArrivalTime())
         return a.getId() < b.getId();
