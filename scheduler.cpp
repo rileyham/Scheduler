@@ -3,7 +3,6 @@
 // Operating Systems, Fall 2025
 //
 // Takes input in from user, decides which scheduler to use and sends the output
-//
 
 #include <iostream>
 #include <fstream>
@@ -109,7 +108,7 @@ bool readFile(const string &filename, const string &type, bool preemptive, queue
 
     sort(processes.begin(), processes.end(), compareByArrival);
 
-    for (auto& p : processes) {
+    for (Process p : processes) {
         ready.push(p);
     }
     return true;
