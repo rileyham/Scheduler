@@ -12,6 +12,8 @@
 #include <queue>
 using namespace std;
 
+// Takes in a queue of processes and a time quantum and simulates round robin scheduling
+// result is placed in response string
 void RoundRobin(std::queue<Process> processes, int timeQuantum, bool isVerbose, string& response);
 
 #endif

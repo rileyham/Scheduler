@@ -1,4 +1,6 @@
-// scheduler.h
+// FILE: scheduler.h
+// Group 1: Chase Gartner, Ryan Geisler, Riley Ham
+// Operating Systems, Fall 2025
 // Header file for the main scheduler file
 
 using namespace std;
@@ -18,7 +20,7 @@ bool readFile(const string &filename, const string &type, bool preemptive, queue
 // Comparator function to sort processes by arrival time
 bool compareByArrival(const Process& a, const Process& b);
 
-//itialize Globals
+//initialize Globals
 string type = "FCFS";
 bool preemptive = false;
 int quanta = 10;

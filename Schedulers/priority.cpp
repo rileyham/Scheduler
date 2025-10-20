@@ -25,7 +25,7 @@ void PriorityNonPreemptive(std::queue<Process> processes, bool isVerbose, string
 
         // if readyQueue is empty, we need to advance time
         if (readyQueue.empty()) {
-            //cout << "CPU is idle at time " << elapsedTime << endl;
+            response += "CPU is idle at time " + to_string(elapsedTime) + "\n";
             elapsedTime++;
             // Load any new processes that have arrived
             while (!processes.empty() && processes.front().getArrivalTime() <= elapsedTime) {
@@ -42,15 +42,9 @@ void PriorityNonPreemptive(std::queue<Process> processes, bool isVerbose, string
                 elapsedTime += currentProcess.getRemainingCpuBurst();
                 int waitTime = elapsedTime - currentProcess.getArrivalTime() - currentProcess.getTotalCpuBurst();
 
-                //cout << "Process " << currentProcess.getId() << " finished at time " << elapsedTime << " ";
-                //cout << "Process " << currentProcess.getId() << " had a wait time of " << waitTime << endl;
-
                 if (isVerbose) {
                     response += "P" + to_string(currentProcess.getId()) + " finished at time " + to_string(elapsedTime) + " ";
                     response += " Wait Time: " + to_string(waitTime) + "\n";
-                }
-                else {
-                    response += "P" + to_string(currentProcess.getId()) + " Wait Time: " + to_string(waitTime) + "\n";
                 }
                 totalWaitTime += waitTime;
             }
@@ -62,10 +56,8 @@ void PriorityNonPreemptive(std::queue<Process> processes, bool isVerbose, string
             }
         }
     }
-    if (isVerbose) {
-        response += "Elapsed Time: " + to_string(elapsedTime) + "\n";
-    }
-    response += "The average wait time is " + to_string(totalWaitTime / numProcesses) + "\n";
+    if (isVerbose) response += "Elapsed Time: " + to_string(elapsedTime) + "\n";
+    response += "The average wait time is " + to_string(totalWaitTime / numProcesses);
 }
 
 void PriorityPreemptive(queue<Process> processes, bool isVerbose, string& response) {
@@ -83,10 +75,10 @@ void PriorityPreemptive(queue<Process> processes, bool isVerbose, string& respon
     }
 
     while (!readyQueue.empty() || !processes.empty()) {
-
+        
         // if readyQueue is empty, we need to advance time
         if (readyQueue.empty()) {
-            //cout << "CPU is idle at time " << elapsedTime << endl;
+            response += "CPU is idle at time " + to_string(elapsedTime) + "\n";
             elapsedTime++;
             // Load any new processes that have arrived
             while (!processes.empty() && processes.front().getArrivalTime() <= elapsedTime) {
@@ -107,15 +99,9 @@ void PriorityPreemptive(queue<Process> processes, bool isVerbose, string& respon
                 if (currentProcess.getRemainingCpuBurst() == 0) {
                     int waitTime = elapsedTime - currentProcess.getArrivalTime() - currentProcess.getTotalCpuBurst();
 
-                    //cout << "Process " << currentProcess.getId() << " finished at time " << elapsedTime << " ";
-                    //cout << "Process " << currentProcess.getId() << " had a wait time of " << waitTime << endl;
-
                     if (isVerbose) {
                         response += "P" + to_string(currentProcess.getId()) + " finished at time " + to_string(elapsedTime) + " ";
                         response += " Wait Time: " + to_string(waitTime) + "\n";
-                    }
-                    else {
-                        response += "P" + to_string(currentProcess.getId()) + " Wait Time: " + to_string(waitTime) + "\n";
                     }
                     totalWaitTime += waitTime;
                 } else {
@@ -131,9 +117,6 @@ void PriorityPreemptive(queue<Process> processes, bool isVerbose, string& respon
             }
         }
     }
-    if (isVerbose) {
-        response += "Elapsed Time: " + to_string(elapsedTime) + "\n";
-    }
-    response += "The average wait time is " + to_string(totalWaitTime / numProcesses) + "\n";
-
+    if (isVerbose) response += "Elapsed Time: " + to_string(elapsedTime) + "\n";
+    response += "The average wait time is " + to_string(totalWaitTime / numProcesses);
 }

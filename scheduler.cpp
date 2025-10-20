@@ -1,4 +1,6 @@
-// scheduler.cpp
+// FILE: scheduler.cpp
+// Group 1: Chase Gartner, Ryan Geisler, Riley Ham
+// Operating Systems, Fall 2025
 // Takes input in from user, decides which scheduler to use and sends the output
 
 #include <iostream>
@@ -26,21 +28,27 @@ int main(int argc, char **argv) {
 
     if (readFile(file, type, preemptive, ready)){
         if (type == "FCFS") {
+            response += "FCFS: \n";
             FCFS(ready, verbose, response);
         } 
         else if (type == "SJF" && !preemptive) {
+            response += "SJF (Non-Preemptive): \n";
             SJFNonPreemptive(ready, verbose, response);
         } 
         else if (type == "SJF" && preemptive) {
+            response += "SJF (Pre-emptive): \n";
             SJFPreemptive(ready, verbose, response);
         }
         else if (type == "RR") {
+            response += "Round Robin: \n";
             RoundRobin(ready, quanta, verbose, response);
         } 
         else if (type == "Priority" && !preemptive) {
+            response += "Priority (Non-Preemptive): \n";
             PriorityNonPreemptive(ready, verbose, response);
         } 
         else if (type == "Priority" && preemptive) {
+            response += "Priority (Preemptive): \n";
             PriorityPreemptive(ready, verbose, response);
         }
         else {
