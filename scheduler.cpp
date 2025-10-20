@@ -1,7 +1,9 @@
 // FILE: scheduler.cpp
 // Group 1: Chase Gartner, Ryan Geisler, Riley Ham
 // Operating Systems, Fall 2025
+//
 // Takes input in from user, decides which scheduler to use and sends the output
+//
 
 #include <iostream>
 #include <fstream>
@@ -63,7 +65,6 @@ int main(int argc, char **argv) {
     return 0;    
 }
 
-// commandDecider
 int commandDecider(int argc, char **argv) {
     for (int i = 1; i < argc; ++i) {
         if (string(argv[i]) == "--type" && i + 1 < argc) {
@@ -88,7 +89,6 @@ int commandDecider(int argc, char **argv) {
     return 0;
 }
 
-// readfile
 bool readFile(const string &filename, const string &type, bool preemptive, queue<Process> &ready) {
     vector<Process> processes;
     ifstream file(filename);
@@ -115,7 +115,6 @@ bool readFile(const string &filename, const string &type, bool preemptive, queue
     return true;
 }
 
-// compareByArrival
 bool compareByArrival(const Process& a, const Process& b) {
     if (a.getArrivalTime() == b.getArrivalTime())
         return a.getId() < b.getId();

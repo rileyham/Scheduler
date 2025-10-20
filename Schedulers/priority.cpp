@@ -1,6 +1,9 @@
 // FILE: priority.cpp
 // Group 1: Chase Gartner, Ryan Geisler, Riley Ham
 // Operating Systems, Fall 2025
+//
+// Implementation of the priority scheduling algorithm, both preemptive and non-preemptive.
+//
 
 #include "priority.h"
 #include <vector>
@@ -75,7 +78,7 @@ void PriorityPreemptive(queue<Process> processes, bool isVerbose, string& respon
     }
 
     while (!readyQueue.empty() || !processes.empty()) {
-        
+
         // if readyQueue is empty, we need to advance time
         if (readyQueue.empty()) {
             response += "CPU is idle at time " + to_string(elapsedTime) + "\n";

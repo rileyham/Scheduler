@@ -4,6 +4,7 @@
 //
 //  Interface of the shortest job first scheduling algorithm.
 //
+
 #ifndef SJF_H
 #define SJF_H
 

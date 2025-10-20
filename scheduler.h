@@ -1,7 +1,9 @@
 // FILE: scheduler.h
 // Group 1: Chase Gartner, Ryan Geisler, Riley Ham
 // Operating Systems, Fall 2025
+//
 // Header file for the main scheduler file
+//
 
 using namespace std;
 #include <iostream>

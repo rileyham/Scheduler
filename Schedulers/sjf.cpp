@@ -1,6 +1,9 @@
 // FILE: priority.cpp
 // Group 1: Chase Gartner, Ryan Geisler, Riley Ham
 // Operating Systems, Fall 2025
+//
+//  Implementation of the shortest job first scheduling algorithm, both preemptive and non-preemptive.
+//
 
 #include "priority.h"
 #include "sjf.h"

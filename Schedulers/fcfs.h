@@ -1,6 +1,10 @@
 // FILE: fcfs.h
 // Group 1: Chase Gartner, Ryan Geisler, Riley Ham
 // Operating Systems, Fall 2025
+//
+// Interface of the first-come, first-serve scheduling algorithm.
+//
+
 #ifndef FCFS_H
 #define FCFS_H
 

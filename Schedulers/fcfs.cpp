@@ -1,11 +1,14 @@
 // FILE: fcfs.cpp
 // Group 1: Chase Gartner, Ryan Geisler, Riley Ham
 // Operating Systems, Fall 2025
+//
+// Implementation of the first-come, first-serve scheduling algorithm.
+//
+
 #include "fcfs.h"
 #include <iostream>
 #include <string>
 using namespace std;
-
 
 void FCFS(queue<Process> ready, bool isVerbose, string &response ) {
     if (ready.empty()) {

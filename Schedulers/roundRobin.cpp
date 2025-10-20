@@ -1,6 +1,9 @@
 // FILE: roundRobin.cpp
 // Group 1: Chase Gartner, Ryan Geisler, Riley Ham
 // Operating Systems, Fall 2025
+//
+// Implementation of the round robin scheduling algorithm.
+//
 
 #include "roundRobin.h"
 #include <vector>
