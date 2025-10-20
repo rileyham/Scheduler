@@ -54,11 +54,11 @@ int main(int argc, char **argv) {
             PriorityPreemptive(ready, verbose, response);
         }
         else {
-            response = "Invalid scheduling type selected\n";
+            response = "Invalid scheduling type selected";
         }
     } 
     else {
-        response = "Error reading file or file is empty\n";
+        response = "Error reading file or file is empty";
     }
 
     cout << response << endl;
@@ -98,13 +98,18 @@ bool readFile(const string &filename, const string &type, const bool preemptive,
         return false;
     }
     
+    bool empty = true;
     while (getline(file, line)) {
+        empty = false;
         string idStr;
         int id, arrival, burst, priority;
         stringstream ss(line);
         ss >> idStr >> arrival >> burst >> priority;
         id = stoi(idStr.substr(2)); // removes 'P_' prefix so we can compare their integer IDs
         processes.emplace_back(id, arrival, burst, priority);
+    }
+    if(empty){
+        return false;
     }
 
     sort(processes.begin(), processes.end(), compareByArrival);
