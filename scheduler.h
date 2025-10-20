@@ -17,7 +17,7 @@ int commandDecider (int argc, char **argv);
 
 // readfile
 // Reads the input file and builds the initial process queue
-bool readFile(const string &filename, const string &type, bool preemptive, queue<Process> &ready);
+bool readFile(const string &filename, const string &type, const bool preemptive, queue<Process> &ready);
 
 // compareByArrival
 // Comparator function to sort processes by arrival time

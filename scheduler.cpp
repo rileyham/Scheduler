@@ -3,6 +3,7 @@
 // Operating Systems, Fall 2025
 //
 // Takes input in from user, decides which scheduler to use and sends the output
+// Citation: Range Based Iteration https://www.geeksforgeeks.org/cpp/range-based-loop-c/
 
 #include <iostream>
 #include <fstream>
@@ -88,7 +89,7 @@ int commandDecider(int argc, char **argv) {
     return 0;
 }
 
-bool readFile(const string &filename, const string &type, bool preemptive, queue<Process> &ready) {
+bool readFile(const string &filename, const string &type, const bool preemptive, queue<Process> &ready) {
     vector<Process> processes;
     ifstream file(filename);
     string line;
